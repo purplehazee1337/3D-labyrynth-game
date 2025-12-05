@@ -96,3 +96,8 @@
 #quest.fade-out {
     opacity: 0;
 }
+
+.coin {
+    background-image: url("textures/item.png");
+    border-radius: 50%;
+}

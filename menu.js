@@ -13,7 +13,7 @@ const questModule = document.getElementById("quest");
 const povGif = document.getElementById("povGif");
 
 let clickSound = new Audio();
-clickSound.src = "audio/diablo-2-enchanted.mp3";
+clickSound.src = "audio/diablo-2-hostile.mp3";
 
 let clickSound2 = new Audio();
 clickSound2.src = "audio/diablo-2-select.mp3";
@@ -29,7 +29,7 @@ clickSound5.src = "audio/diablo-2-select.mp3";
 
 let levelMusic1 = new Audio();
 levelMusic1.src = "audio/01 - Wilderness.mp3";
-levelMusic1.volume = 0.05;
+levelMusic1.volume = 0.1;
 levelMusic1.currentTime = 10;
 
 button1.onclick = function () {
