@@ -9,6 +9,13 @@
     font-family: 'Diablo Heavy';
 }
 
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5) 100%);
+}
+
 #povGif {
     display: none;
     position: absolute; 
@@ -98,6 +105,5 @@
 }
 
 .coin {
-    background-image: url("textures/item.png");
     border-radius: 50%;
 }
