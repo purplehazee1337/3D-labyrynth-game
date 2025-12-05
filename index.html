@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3d game</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div
+      id="container"
+      style="
+        background-image: url('textures/background.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      "
+    >
+      <div id="world"></div>
+      <div id="menu1" class="menu">
+        <img src="assets/logo.png">
+        <button id="button1" class="button">
+          <p>START GAME</p>
+        </button>
+        <button id="button2" class="button">
+          <p>INSTRUCTIONS</p>
+        </button>
+        <button id="button4" class="button">
+          <p>Rules</p>
+        </button>
+      </div>
+      <div id="menu2" class="menu" style="display: none">
+        <p>
+          <strong>CONTROL KEYS</strong><br />
+          W - GO FORWARD<br />
+          S - GO BACK<br />
+          D - GO RIGHT<br />
+          A - GO LEFT<br />
+          SPACE - JUMPING<br /><br />
+          <strong>YOU CAN PLAY USING ARROWS KEYS!</strong>
+        </p>
+
+        <button id="button3" class="button">
+          <p>Back</p>
+        </button>
+      </div>
+      <div id="menu3" class="menu" style="display: none">
+        <p>
+          <strong>RULES</strong><br />
+          1. FIND KEY IN LABYRYNTH<br />
+          2. FIND PORTAL TO ESCAPE<br />
+        </p>
+
+        <button id="button5" class="button">
+          <p>Back</p>
+        </button>
+      </div>
+      <img id="povGif">
+      <div id="quest">
+      </div>
+    </div>
+  </body>
+  <script type="module" src="index.js"></script>
+  <script>
+    
+  </script>
+</html>
