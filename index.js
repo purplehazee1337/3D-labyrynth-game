@@ -11,9 +11,9 @@ const container = document.getElementById("container");
 // x y z rx ry rz w h c
 const map = [
   //Floor
-  [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "textures/floor.webp"],
+  [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "assets/textures/floor.webp"],
   //Sprites
-  [400, -40, -50, 0, 0, 0, 500, 295, "", "textures/sprite.gif"],
+  [400, -40, -50, 0, 0, 0, 500, 295, "", "assets/textures/sprite.gif"],
   //Portal
   [800, 0, 800, 0, 90, 0, 200, 295, "", "assets/portal.gif"],
   ...labirynth,
@@ -156,7 +156,7 @@ function itemCollectDetector(squares, type) {
       const el = document.getElementById(type + i);
       if (el) {
         const sound = new Audio();
-        sound.src = "audio/diablo-2-enchanted.mp3";
+        sound.src = "assets/audio/diablo-2-enchanted.mp3";
         sound.play();
         el.remove();
       }

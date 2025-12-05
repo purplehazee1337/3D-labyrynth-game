@@ -1,5 +1,5 @@
 const dev = true
-const wallTexture = dev ? "textures/wall.jpg" : "";
+const wallTexture = dev ? "assets/textures/wall.jpg" : "";
 
 const column1 = [
     //Modules
