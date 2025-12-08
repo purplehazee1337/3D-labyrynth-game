@@ -1,9 +1,10 @@
-import { labirynth } from "./labirynth.js";
-import { canLock } from "./menu.js";
+import { labirynth } from "./utils/labirynth.js";
+import { canLock } from "./utils/menu.js";
+import Player from "./classes/player.js";
 
 //world constant
 const deg = Math.PI / 180;
-const pawn = new player(0, 0, 0, 0, 0);
+const pawn = new Player(0, 0, 0, 0, 0);
 const world = document.getElementById("world");
 const container = document.getElementById("container");
 
@@ -103,14 +104,6 @@ document.addEventListener("mousemove", (e) => {
   mouseX = e.movementX;
   mouseY = e.movementY;
 });
-
-function player(x, y, z, rx, ry) {
-  this.x = x;
-  this.y = y;
-  this.z = z;
-  this.rx = rx;
-  this.ry = ry;
-}
 
 function createNewWorld() {
   createSquares(map, "map");
