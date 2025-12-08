@@ -126,4 +126,16 @@ export default class Level {
   getLevel() {
     return this.level;
   }
+  getMap() {
+    return this.map;
+  }
+  getCoins() {
+    return this.coins;
+  }
+  getKeys() {
+    return this.keys;
+  }
+  getPortals() {
+    return this.portals;
+  }
 }
