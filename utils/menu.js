@@ -1,4 +1,4 @@
-import fireQuestModule from "./fireQuestModule.js";
+import fireQuestModule from "../utils/fireQuestModule.js";
 
 export let canLock = false;
 
