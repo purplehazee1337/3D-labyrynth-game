@@ -8,6 +8,7 @@ import fireQuestModule from "./utils/fireQuestModule.js";
   const world = document.getElementById("world");
   world.style.backgroundImage = "background.webp";
   const player = new Player(0, 0, 0, 0, 0);
+  const level = new Level();
 
   const container = document.getElementById("container");
   container.onclick = () => {
@@ -18,14 +19,12 @@ import fireQuestModule from "./utils/fireQuestModule.js";
     player.changeLock();
   });
 
-  const level = new Level();
-  const coins = level.getCoins();
-  const keys = level.getKeys();
-  const portals = level.getPortals();
-
   //Game loop
   setInterval(() => {
     player.update();
+    const coins = level.getCoins();
+    const keys = level.getKeys();
+    const portals = level.getPortals();
     objectDetector(coins, "coin", player, (id) => {
       const el = document.getElementById(id);
       if (el) {
@@ -56,7 +55,9 @@ import fireQuestModule from "./utils/fireQuestModule.js";
         sound.play();
         el.remove();
         console.log("Portal reached:", id);
-        fireQuestModule("You won!");
+        level.nextLevel();
+        fireQuestModule("Level: " + level.getLevel());
+        player.move(0, 0, 0, 0, 0);
       }
     });
   }, 10);

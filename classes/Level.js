@@ -20,7 +20,7 @@ const defaultFreeSpace = [
   //z: 0
   { x: -800, z: 0 },
   { x: -400, z: 0 },
-  { x: 0, z: 0 },
+  // { x: 0, z: 0 },
   { x: 400, z: 0 },
   { x: 800, z: 0 },
 
@@ -40,38 +40,72 @@ const defaultFreeSpace = [
 ];
 
 export default class Level {
-  constructor(coinsNumber = 3, keysNumber = 1) {
+  constructor() {
     this.level = 1;
-    this.freeSpace = defaultFreeSpace;
+    this.initLevel();
+  }
+
+  // Deep-copy free positions
+  copyFreeSpace() {
+    return defaultFreeSpace.map((pos) => ({ ...pos }));
+  }
+
+  // Common code for level creation
+  initLevel() {
+    this.coinsNumber = Math.floor(this.level * 1.3);
+    this.keysNumber = 1;
+    this.freeSpace = this.copyFreeSpace();
+
     this.map = labirynth;
     this.coins = [];
     this.keys = [];
     this.portals = [];
 
-    //Randomly place coins
-    for (let i = 0; i < coinsNumber; i++) {
-      const index = Math.floor(Math.random() * this.freeSpace.length);
-      const pos = this.freeSpace[index];
-      this.coins.push([pos.x, 30, pos.z, 0, 90, 0, 50, 50, "yellow"]);
-      this.freeSpace.splice(index, 1);
-    }
-
-    //Randomly place keys
-    for (let i = 0; i < keysNumber; i++) {
-      const index = Math.floor(Math.random() * this.freeSpace.length);
-      const pos = this.freeSpace[index];
-      this.keys.push([pos.x, 30, pos.z, 0, 0, 0, 50, 50, "grey"]);
-      this.freeSpace.splice(index, 1);
-    }
+    this.placeKeys();
+    this.placeCoins();
 
     createObjects(this.map, "map");
     createObjects(this.coins, "coin");
     createObjects(this.keys, "key");
+    createObjects(this.portals, "portal");
+  }
+
+  placeKeys() {
+    for (let i = 0; i < this.keysNumber; i++) {
+      if (this.freeSpace.length < 1) return;
+
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.keys.push([pos.x, 30, pos.z, 0, 0, 0, 50, 50, "grey"]);
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
+  placeCoins() {
+    for (let i = 0; i < this.coinsNumber; i++) {
+      if (this.freeSpace.length < 1) return;
+
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.coins.push([pos.x, 30, pos.z, 0, 90, 0, 50, 50, "yellow"]);
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
+  nextLevel() {
+    document.getElementById("world").innerHTML = "";
+    this.level += 1;
+    this.initLevel();
   }
 
   spawnPortal() {
+    if (this.freeSpace.length < 1) return;
+
     const index = Math.floor(Math.random() * this.freeSpace.length);
     const pos = this.freeSpace[index];
+
     this.portals.push([
       pos.x,
       0,
@@ -84,20 +118,12 @@ export default class Level {
       "",
       "assets/portal.gif",
     ]);
+
     this.freeSpace.splice(index, 1);
     createObjects(this.portals, "portal");
   }
 
-  getMap() {
-    return this.map;
-  }
-  getCoins() {
-    return this.coins;
-  }
-  getKeys() {
-    return this.keys;
-  }
-  getPortals() {
-    return this.portals;
+  getLevel() {
+    return this.level;
   }
 }

@@ -82,7 +82,7 @@ export default class Player {
     this.lock = !this.lock;
   }
 
-  movePlayer(x, y, z, rx, ry) {
+  move(x, y, z, rx, ry) {
     this.x = x;
     this.y = y;
     this.z = z;
@@ -94,13 +94,13 @@ export default class Player {
     //count movement
     const dx =
       Math.cos(this.ry * deg) * (this.pressRight - this.pressLeft) -
-      Math.sin(this.ry * deg) * (this.pressForward - this.pressBack) * 2;
+      Math.sin(this.ry * deg) * (this.pressForward - this.pressBack) * 5;
 
     const dz =
       -(
         Math.sin(this.ry * deg) * (this.pressRight - this.pressLeft) +
         Math.cos(this.ry * deg) * (this.pressForward - this.pressBack)
-      ) * 2;
+      ) * 5;
 
     const dy = -this.pressUp * 5;
     const drx = this.mouseY / 4;
