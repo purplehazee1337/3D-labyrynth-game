@@ -1,8 +1,8 @@
-import { labirynth } from "./utils/labirynth.js";
-import Player from "./classes/player.js";
+import Player from "./classes/Player.js";
 import { canLock } from "./utils/menu.js";
 import objectDetector from "./utils/objectDetector.js";
 import createObjects from "./utils/createObjects.js";
+import Level from "./classes/Level.js";
 
 (() => {
   const world = document.getElementById("world");
@@ -18,34 +18,42 @@ import createObjects from "./utils/createObjects.js";
     player.changeLock();
   });
 
-  //Objects data
-  // x y z rx ry rz w h c
-  const map = [
-    //Floor
-    [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "assets/textures/floor.webp"],
-    //Sprites
-    [400, -40, -50, 0, 0, 0, 500, 295, "", "assets/textures/sprite.gif"],
-    //Portal
-    [800, 0, 800, 0, 90, 0, 200, 295, "", "assets/portal.gif"],
-    ...labirynth,
-  ];
-
-  const coins = [
-    [0, 30, -800, 0, 90, 0, 50, 50, "yellow"],
-    [-800, 30, 800, 0, 90, 0, 50, 50, "yellow"],
-    [-400, 30, -800, 0, 0, 0, 50, 50, "yellow"],
-  ];
-
-  const keys = [[-800, 30, 400, 0, 0, 0, 50, 50, "grey"]];
+  const level = new Level("Labirynth", "Easy");
+  const map = level.getMap();
+  const coins = level.getCoins();
+  const keys = level.getKeys();
+  const portals = level.getPortals();
 
   createObjects(map, "map");
   createObjects(coins, "coin");
   createObjects(keys, "key");
+  createObjects(portals, "portal");
 
   //Game loop
   setInterval(() => {
     player.updateMovement();
-    objectDetector(coins, "coin", player);
-    objectDetector(keys, "key", player);
+    objectDetector(coins, "coin", player, (id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        const sound = new Audio();
+        sound.src = "assets/audio/diablo-2-enchanted.mp3";
+        sound.play();
+        el.remove();
+      }
+      console.log("Coin collected:", id);
+    });
+    objectDetector(keys, "key", player, (id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        const sound = new Audio();
+        sound.src = "assets/audio/diablo-2-enchanted.mp3";
+        sound.play();
+        el.remove();
+        console.log("Key collected:", id);
+      }
+    });
+    objectDetector(portals, "portal", player, (id) => {
+      console.log("Portal reached:", id);
+    });
   }, 10);
 })();

@@ -1,4 +1,4 @@
-export default function objectDetector(objects, type, player) {
+export default function objectDetector(objects, type, player, callback) {
   for (let i = 0; i < objects.length; i++) {
     const object = objects[i];
     let r =
@@ -10,10 +10,7 @@ export default function objectDetector(objects, type, player) {
     if (r < r1) {
       const el = document.getElementById(type + i);
       if (el) {
-        const sound = new Audio();
-        sound.src = "assets/audio/diablo-2-enchanted.mp3";
-        sound.play();
-        el.remove();
+        callback && callback(type + i);
       }
     }
   }
