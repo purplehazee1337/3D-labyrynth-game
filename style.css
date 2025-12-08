@@ -104,5 +104,10 @@
 }
 
 .coin {
-  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  background-image: url("./assets/textures/redbull.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }

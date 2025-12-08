@@ -39,6 +39,20 @@ const defaultFreeSpace = [
   { x: 800, z: 800 },
 ];
 
+const original = labirynth;
+
+// Flip through Z axis (mirror X)
+const flipZ = original.map(([x, y, z, ...rest]) => [-x, y, z, ...rest]);
+
+// Flip through X axis (mirror Y)
+const flipX = original.map(([x, y, z, ...rest]) => [x, y, -z, ...rest]);
+
+// Flip through both X and Z (mirror X and Y)
+const flipXZ = original.map(([x, y, z, ...rest]) => [-x, y, -z, ...rest]);
+
+// All variants
+const variants = [original, flipZ, flipX, flipXZ];
+
 export default class Level {
   constructor() {
     this.level = 1;
@@ -52,11 +66,11 @@ export default class Level {
 
   // Common code for level creation
   initLevel() {
-    this.coinsNumber = Math.floor(this.level * 1.3);
+    this.coinsNumber = Math.floor(this.level * 1.2);
     this.keysNumber = 1;
     this.freeSpace = this.copyFreeSpace();
 
-    this.map = labirynth;
+    this.map = variants[Math.floor(Math.random() * variants.length)];
     this.coins = [];
     this.keys = [];
     this.portals = [];
@@ -67,29 +81,50 @@ export default class Level {
     createObjects(this.map, "map");
     createObjects(this.coins, "coin");
     createObjects(this.keys, "key");
-    createObjects(this.portals, "portal");
   }
 
   placeKeys() {
     for (let i = 0; i < this.keysNumber; i++) {
-      if (this.freeSpace.length < 1) return;
+      if (this.freeSpace.length <= 1) return;
 
       const index = Math.floor(Math.random() * this.freeSpace.length);
       const pos = this.freeSpace[index];
 
-      this.keys.push([pos.x, 30, pos.z, 0, 0, 0, 50, 50, "grey"]);
+      this.keys.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        0,
+        0,
+        80,
+        100,
+        "",
+        "assets/textures/key.png",
+      ]);
       this.freeSpace.splice(index, 1);
     }
   }
 
   placeCoins() {
     for (let i = 0; i < this.coinsNumber; i++) {
-      if (this.freeSpace.length < 1) return;
+      if (this.freeSpace.length <= 1) return;
 
       const index = Math.floor(Math.random() * this.freeSpace.length);
       const pos = this.freeSpace[index];
 
-      this.coins.push([pos.x, 30, pos.z, 0, 90, 0, 50, 50, "yellow"]);
+      this.coins.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        90,
+        0,
+        40,
+        80,
+        "",
+        "assets/textures/redbull.png",
+      ]);
       this.freeSpace.splice(index, 1);
     }
   }
@@ -101,7 +136,7 @@ export default class Level {
   }
 
   spawnPortal() {
-    if (this.freeSpace.length < 1) return;
+    if (this.freeSpace.length === 0) return;
 
     const index = Math.floor(Math.random() * this.freeSpace.length);
     const pos = this.freeSpace[index];

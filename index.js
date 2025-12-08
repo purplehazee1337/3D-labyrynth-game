@@ -3,10 +3,11 @@ import { canLock } from "./utils/menu.js";
 import objectDetector from "./utils/objectDetector.js";
 import Level from "./classes/Level.js";
 import fireQuestModule from "./utils/fireQuestModule.js";
+import itemRotator from "./utils/itemRotator.js";
 
 (() => {
   const world = document.getElementById("world");
-  world.style.backgroundImage = "background.webp";
+  world.style.backgroundImage = "url('background.webp')";
   const player = new Player(0, 0, 0, 0, 0);
   const level = new Level();
 
@@ -60,5 +61,6 @@ import fireQuestModule from "./utils/fireQuestModule.js";
         player.move(0, 0, 0, 0, 0);
       }
     });
+    itemRotator();
   }, 10);
 })();
