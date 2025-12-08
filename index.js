@@ -18,14 +18,14 @@ import fireQuestModule from "./utils/fireQuestModule.js";
     player.changeLock();
   });
 
-  const level = new Level("Labirynth", "Easy");
+  const level = new Level();
   const coins = level.getCoins();
   const keys = level.getKeys();
   const portals = level.getPortals();
 
   //Game loop
   setInterval(() => {
-    player.updateMovement();
+    player.update();
     objectDetector(coins, "coin", player, (id) => {
       const el = document.getElementById(id);
       if (el) {

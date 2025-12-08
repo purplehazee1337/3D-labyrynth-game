@@ -1,54 +1,49 @@
-import { labirynth } from "../utils/labirynth.js";
+import { labirynth } from "../maps/labirynth1.js";
 import createObjects from "../utils/createObjects.js";
 //Objects data
 // x y z rx ry rz w h c
+const defaultFreeSpace = [
+  //z: -800
+  { x: -800, z: -800 },
+  { x: -400, z: -800 },
+  { x: 0, z: -800 },
+  { x: 400, z: -800 },
+  { x: 800, z: -800 },
+
+  //z: -400
+  { x: -800, z: -400 },
+  { x: -400, z: -400 },
+  { x: 0, z: -400 },
+  { x: 400, z: -400 },
+  { x: 800, z: -400 },
+
+  //z: 0
+  { x: -800, z: 0 },
+  { x: -400, z: 0 },
+  { x: 0, z: 0 },
+  { x: 400, z: 0 },
+  { x: 800, z: 0 },
+
+  //z: 400
+  { x: -800, z: 400 },
+  { x: -400, z: 400 },
+  { x: 0, z: 400 },
+  { x: 400, z: 400 },
+  { x: 800, z: 400 },
+
+  //z: 800
+  { x: -800, z: 800 },
+  { x: -400, z: 800 },
+  { x: 0, z: 800 },
+  { x: 400, z: 800 },
+  { x: 800, z: 800 },
+];
 
 export default class Level {
-  constructor(name, difficulty, coinsNumber = 3, keysNumber = 1) {
-    this.name = name;
-    this.difficulty = difficulty;
-    this.freeSpace = [
-      //z: -800
-      { x: -800, z: -800 },
-      { x: -400, z: -800 },
-      { x: 0, z: -800 },
-      { x: 400, z: -800 },
-      { x: 800, z: -800 },
-
-      //z: -400
-      { x: -800, z: -400 },
-      { x: -400, z: -400 },
-      { x: 0, z: -400 },
-      { x: 400, z: -400 },
-      { x: 800, z: -400 },
-
-      //z: 0
-      { x: -800, z: 0 },
-      { x: -400, z: 0 },
-      { x: 0, z: 0 },
-      { x: 400, z: 0 },
-      { x: 800, z: 0 },
-
-      //z: 400
-      { x: -800, z: 400 },
-      { x: -400, z: 400 },
-      { x: 0, z: 400 },
-      { x: 400, z: 400 },
-      { x: 800, z: 400 },
-
-      //z: 800
-      { x: -800, z: 800 },
-      { x: -400, z: 800 },
-      { x: 0, z: 800 },
-      { x: 400, z: 800 },
-      { x: 800, z: 800 },
-    ];
-    this.map = [
-      //Floor
-      [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "assets/textures/floor.webp"],
-      //Walls
-      ...labirynth,
-    ];
+  constructor(coinsNumber = 3, keysNumber = 1) {
+    this.level = 1;
+    this.freeSpace = defaultFreeSpace;
+    this.map = labirynth;
     this.coins = [];
     this.keys = [];
     this.portals = [];

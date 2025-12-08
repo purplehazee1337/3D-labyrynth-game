@@ -35,7 +35,7 @@ levelMusic1.currentTime = 10;
 
 button1.onclick = function () {
   clickSound.play();
-  levelMusic1.play();
+  //levelMusic1.play();
   fireQuestModule("Find a key.");
 
   menu1.style.display = "none";

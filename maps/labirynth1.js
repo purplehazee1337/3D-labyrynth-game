@@ -1,8 +1,8 @@
-const dev = true
+const dev = true;
 const wallTexture = dev ? "assets/textures/wall.jpg" : "";
 
 const column1 = [
-    //Modules
+  //Modules
   [-800, 0, -950, 0, 0, 0, 400, 200, "blue", wallTexture],
   [-800, 0, -1000, 0, 0, 0, 400, 200, "blue", wallTexture],
 
@@ -66,7 +66,7 @@ const column1 = [
 
   [950, 0, -775, 0, -90, 0, 450, 200, "yellow", wallTexture],
   [1000, 0, -800, 0, -90, 0, 400, 200, "yellow", wallTexture],
-]
+];
 
 const column2 = [
   // Modules
@@ -122,7 +122,7 @@ const column2 = [
   // [600, 0, -400, 0, -90, 0, 400, 200, "yellow", wallTexture],
 
   // Module 5
-  //  
+  //
 
   // [800, 0, -250, 0, 0, 0, 500, 200, "red", wallTexture],
   // [800, 0, -200, 0, 0, 0, 400, 200, "red", wallTexture],
@@ -339,35 +339,38 @@ const missingWalls = [
   [-600, 0, -550, 0, 0, 0, 100, 200, "purple", wallTexture],
   [650, 0, -600, 0, 90, 0, 100, 200, "purple", wallTexture],
   [600, 0, 250, 0, 0, 0, 100, 200, "purple", wallTexture],
-  [-250, 0, 600, 0, 90, 0, 100, 200, "purple", wallTexture]
-]
+  [-250, 0, 600, 0, 90, 0, 100, 200, "purple", wallTexture],
+];
 
 const verticalWalls = [
   [-600, -100, -775, 90, 0, 0, 100, 450, "orange", wallTexture],
-   [-600, -100, 200, 90, 0, 0, 100, 900, "orange", wallTexture],
-   [-400, -100, -200, 90, 0, 90, 100, 500, "orange", wallTexture],
-   [400, -100, -200, 90, 0, 90, 100, 500, "orange", wallTexture],
-   [200, -100, -600, 90, 0, 90, 100, 900, "orange", wallTexture],
-   [-200, -100, -800, 90, 0, 0, 100, 400, "orange", wallTexture],
-   [-200, -100, 0, 90, 0, 0, 100, 500, "orange", wallTexture],
-   [200, -100, 0, 90, 0, 0, 100, 500, "orange", wallTexture],
-   [600, -100, 0, 90, 0, 0, 100, 500, "orange", wallTexture],
-   [0, -100, 200, 90, 0, 90, 100, 500, "orange", wallTexture],
-   [375, -100, 600, 90, 0, 90, 100, 1250, "orange", wallTexture],
-   [-825, -100, 600, 90, 0, 90, 100, 350 , "orange", wallTexture],
+  [-600, -100, 200, 90, 0, 0, 100, 900, "orange", wallTexture],
+  [-400, -100, -200, 90, 0, 90, 100, 500, "orange", wallTexture],
+  [400, -100, -200, 90, 0, 90, 100, 500, "orange", wallTexture],
+  [200, -100, -600, 90, 0, 90, 100, 900, "orange", wallTexture],
+  [-200, -100, -800, 90, 0, 0, 100, 400, "orange", wallTexture],
+  [-200, -100, 0, 90, 0, 0, 100, 500, "orange", wallTexture],
+  [200, -100, 0, 90, 0, 0, 100, 500, "orange", wallTexture],
+  [600, -100, 0, 90, 0, 0, 100, 500, "orange", wallTexture],
+  [0, -100, 200, 90, 0, 90, 100, 500, "orange", wallTexture],
+  [375, -100, 600, 90, 0, 90, 100, 1250, "orange", wallTexture],
+  [-825, -100, 600, 90, 0, 90, 100, 350, "orange", wallTexture],
 
-   [0, -100, -975, 90, 0, 90, 50, 2000 , "orange", wallTexture],
-    [0, -100, 975, 90, 0, 90, 50, 2000 , "orange", wallTexture],
-    [975, -100, 0, 90, 0, 0, 50, 2000 , "orange", wallTexture],
-    [-975, -100, 0, 90, 0, 0, 50, 2000 , "orange", wallTexture],
-]
+  [0, -100, -975, 90, 0, 90, 50, 2000, "orange", wallTexture],
+  [0, -100, 975, 90, 0, 90, 50, 2000, "orange", wallTexture],
+  [975, -100, 0, 90, 0, 0, 50, 2000, "orange", wallTexture],
+  [-975, -100, 0, 90, 0, 0, 50, 2000, "orange", wallTexture],
+];
 
- export const labirynth = [
+export const labirynth = [
+  //Floor
+  [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "assets/textures/floor.webp"],
+  //Walls
   ...column1,
   ...column2,
   ...column3,
   ...column4,
   ...column5,
   ...missingWalls,
-  ...verticalWalls
-]
+  ...verticalWalls,
+];

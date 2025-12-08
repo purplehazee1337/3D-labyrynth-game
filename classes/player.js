@@ -90,7 +90,7 @@ export default class Player {
     this.ry = ry;
   }
 
-  updateMovement() {
+  update() {
     //count movement
     const dx =
       Math.cos(this.ry * deg) * (this.pressRight - this.pressLeft) -
