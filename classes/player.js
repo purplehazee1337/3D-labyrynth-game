@@ -82,6 +82,14 @@ export default class Player {
     this.lock = !this.lock;
   }
 
+  movePlayer(x, y, z, rx, ry) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.rx = rx;
+    this.ry = ry;
+  }
+
   updateMovement() {
     //count movement
     const dx =
@@ -103,7 +111,7 @@ export default class Player {
     this.y = Math.max(Math.min(this.y + dy + 2, 0), -150);
     this.z = this.z + dz;
     if (!this.lock) {
-      this.rx = this.rx + drx;
+      this.rx = Math.max(Math.min(this.rx + drx, 90), -90);
       this.ry = this.ry + dry;
     }
 

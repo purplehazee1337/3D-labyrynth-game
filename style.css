@@ -1,109 +1,108 @@
 @font-face {
-    font-family: 'Diablo Heavy';
-    font-style: normal;
-    font-weight: normal;
-    src: local('Diablo Heavy'), url('assets/Diablo Light.ttf') format('truetype');
-    }
+  font-family: "Diablo Heavy";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Diablo Heavy"), url("assets/Diablo Light.ttf") format("truetype");
+}
 
 * {
-    font-family: 'Diablo Heavy';
+  font-family: "Diablo Heavy";
 }
 
 .vignette {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5) 100%);
+  background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 #povGif {
-    display: none;
-    position: absolute; 
-    width: 1200px; 
-    height: 800px;
+  display: none;
+  position: absolute;
+  width: 1200px;
+  height: 800px;
 }
 
 #container {
-    position: absolute;
-    width: 1200px;
-    height: 800px;
-    border: 2px solid black;
-    perspective: 600px;
-    overflow: hidden;
+  position: absolute;
+  width: 1200px;
+  height: 800px;
+  border: 2px solid black;
+  perspective: 600px;
+  overflow: hidden;
 }
 
 #world {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    transform-style: preserve-3d;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  transform-style: preserve-3d;
 }
 
 .square {
-    position: absolute;
+  position: absolute;
 }
 
 .menu {
-    border: 10px solid goldenrod;
-    position: absolute;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    top: 400px;
-    left: 360px;
-    width: 500px;
-    height: 300px;
-    background-size: cover;
-    background-image: url("assets/menu.png");
-    border-image: url("assets/menu.png");
+  border: 10px solid goldenrod;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  top: 400px;
+  left: 360px;
+  width: 500px;
+  height: 300px;
+  background-size: cover;
+  background-image: url("assets/menu.png");
+  border-image: url("assets/menu.png");
 }
 
 .menu p {
-    color: whitesmoke;
-    font-size: 20px;
-    text-align: center;
+  color: whitesmoke;
+  font-size: 20px;
+  text-align: center;
 }
 
 #menu1 {
-    top: 400px;
-    height: auto;
-    justify-content: end;
+  top: 400px;
+  height: auto;
+  justify-content: end;
 }
 
 .menu button {
-    cursor: pointer;
-    border: none;
-    background-color: rgb(193, 147, 30);
-    background-image: url("assets/menu.png");
-    
+  cursor: pointer;
+  border: none;
+  background-color: rgb(193, 147, 30);
+  background-image: url("assets/menu.png");
 }
 
 .menu button:hover {
-    border: none;
-    background-color: rgb(143, 108, 21);
+  border: none;
+  background-color: rgb(143, 108, 21);
 }
 
 #quest {
-    display: none;
-    position: absolute;
-    top: 200px;
-    left: 525px;
-    padding: 3px;
-    font-size: 30px;
-    color: whitesmoke;
-    opacity: 0;
-    transition: opacity 1s ease;
-    text-align: center;
+  display: none;
+  position: absolute;
+  top: 200px;
+  left: 500px;
+  padding: 3px;
+  font-size: 30px;
+  color: whitesmoke;
+  opacity: 0;
+  transition: opacity 1s ease;
+  text-align: center;
 }
 
 #quest.fade-in {
-    opacity: 1;
+  opacity: 1;
 }
 
 #quest.fade-out {
-    opacity: 0;
+  opacity: 0;
 }
 
 .coin {
-    border-radius: 50%;
+  border-radius: 50%;
 }

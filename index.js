@@ -1,8 +1,8 @@
 import Player from "./classes/Player.js";
 import { canLock } from "./utils/menu.js";
 import objectDetector from "./utils/objectDetector.js";
-import createObjects from "./utils/createObjects.js";
 import Level from "./classes/Level.js";
+import fireQuestModule from "./utils/fireQuestModule.js";
 
 (() => {
   const world = document.getElementById("world");
@@ -19,15 +19,9 @@ import Level from "./classes/Level.js";
   });
 
   const level = new Level("Labirynth", "Easy");
-  const map = level.getMap();
   const coins = level.getCoins();
   const keys = level.getKeys();
   const portals = level.getPortals();
-
-  createObjects(map, "map");
-  createObjects(coins, "coin");
-  createObjects(keys, "key");
-  createObjects(portals, "portal");
 
   //Game loop
   setInterval(() => {
@@ -49,11 +43,21 @@ import Level from "./classes/Level.js";
         sound.src = "assets/audio/diablo-2-enchanted.mp3";
         sound.play();
         el.remove();
+        level.spawnPortal();
+        fireQuestModule("Find the portal!");
         console.log("Key collected:", id);
       }
     });
     objectDetector(portals, "portal", player, (id) => {
-      console.log("Portal reached:", id);
+      const el = document.getElementById(id);
+      if (el) {
+        const sound = new Audio();
+        sound.src = "assets/audio/diablo-2-enchanted.mp3";
+        sound.play();
+        el.remove();
+        console.log("Portal reached:", id);
+        fireQuestModule("You won!");
+      }
     });
   }, 10);
 })();
