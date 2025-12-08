@@ -1,4 +1,5 @@
 import fireQuestModule from "../utils/fireQuestModule.js";
+import startTimer from "../utils/timer.js";
 
 export let canLock = false;
 
@@ -34,10 +35,10 @@ levelMusic1.volume = 0.1;
 levelMusic1.currentTime = 10;
 
 button1.onclick = function () {
+  startTimer();
   clickSound.play();
   //levelMusic1.play();
   fireQuestModule("Find a key.");
-
   menu1.style.display = "none";
   povGif.style.display = "block";
   povGif.src = "";

@@ -111,3 +111,12 @@
   background-position: center;
   background-size: contain;
 }
+
+.counter {
+  display: none;
+  bottom: 10px;
+  left: 530px;
+  position: absolute;
+  color: rgb(146, 8, 8);
+  font-size: 70px;
+}
