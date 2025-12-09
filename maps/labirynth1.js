@@ -362,7 +362,7 @@ const verticalWalls = [
   [-975, -100, 0, 90, 0, 0, 50, 2000, "orange", wallTexture],
 ];
 
-export const labirynth = [
+const map = [
   //Floor
   [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "assets/textures/floor.webp"],
   //Walls
@@ -374,3 +374,73 @@ export const labirynth = [
   ...missingWalls,
   ...verticalWalls,
 ];
+
+const collisionAreas = [
+  // TOP wall (z = -1000 to -950)
+  { x1: -1000, x2: 1000, z1: -1000, z2: -950 },
+
+  // BOTTOM wall (z = +950 to +1000)
+  { x1: -1000, x2: 1000, z1: 950, z2: 1000 },
+
+  // LEFT wall (x = -1000 to -950)
+  { x1: -1000, x2: -950, z1: -1000, z2: 1000 },
+
+  // RIGHT wall (x = +950 to +1000)
+  { x1: 950, x2: 1000, z1: -1000, z2: 1000 },
+
+  //Inner walls
+  { x1: -650, x2: -550, z1: -1000, z2: -525 },
+  { x1: -250, x2: -150, z1: -1000, z2: -525 },
+  { x1: -250, x2: 675, z1: -650, z2: -525 },
+  { x1: -650, x2: -150, z1: -250, z2: -150 },
+  { x1: 150, x2: 650, z1: -250, z2: -150 },
+  { x1: -250, x2: 250, z1: 150, z2: 250 },
+  { x1: -650, x2: -550, z1: -250, z2: 650 },
+  { x1: -250, x2: 1000, z1: 550, z2: 650 },
+  { x1: -1000, x2: -550, z1: 550, z2: 650 },
+  { x1: -250, x2: -150, z1: -150, z2: 250 },
+  { x1: 150, x2: 250, z1: -150, z2: 250 },
+  { x1: 550, x2: 650, z1: -150, z2: 250 },
+];
+
+const original = { map: map, collisionAreas: collisionAreas };
+
+// Flip through Z axis (mirror X)
+const flipZ = {
+  map: original.map.map(([x, y, z, ...rest]) => [-x, y, z, ...rest]),
+  collisionAreas: original.collisionAreas.map(({ x1, x2, z1, z2 }) => ({
+    x1: -x2,
+    x2: -x1,
+    z1,
+    z2,
+  })),
+};
+
+// Flip through X axis (mirror Y)
+const flipX = {
+  map: original.map.map(([x, y, z, ...rest]) => [x, y, -z, ...rest]),
+  collisionAreas: original.collisionAreas.map(({ x1, x2, z1, z2 }) => ({
+    x1,
+    x2,
+    z1: -z2,
+    z2: -z1,
+  })),
+};
+
+// Flip through both X and Z (mirror X and Y)
+const flipXZ = {
+  map: original.map.map(([x, y, z, ...rest]) => [-x, y, -z, ...rest]),
+  collisionAreas: original.collisionAreas.map(({ x1, x2, z1, z2 }) => ({
+    x1: -x2,
+    x2: -x1,
+    z1: -z2,
+    z2: -z1,
+  })),
+};
+
+// All variants
+const variants = [original, flipZ, flipX, flipXZ];
+
+export default function createLabirynth() {
+  return variants;
+}

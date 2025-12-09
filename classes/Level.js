@@ -1,7 +1,6 @@
-import { labirynth } from "../maps/labirynth1.js";
+import createLabirynth from "../maps/labirynth1.js";
 import createObjects from "../utils/createObjects.js";
-//Objects data
-// x y z rx ry rz w h c
+
 const defaultFreeSpace = [
   //z: -800
   { x: -800, z: -800 },
@@ -38,23 +37,11 @@ const defaultFreeSpace = [
   { x: 400, z: 800 },
   { x: 800, z: 800 },
 ];
-
-const original = labirynth;
-
-// Flip through Z axis (mirror X)
-const flipZ = original.map(([x, y, z, ...rest]) => [-x, y, z, ...rest]);
-
-// Flip through X axis (mirror Y)
-const flipX = original.map(([x, y, z, ...rest]) => [x, y, -z, ...rest]);
-
-// Flip through both X and Z (mirror X and Y)
-const flipXZ = original.map(([x, y, z, ...rest]) => [-x, y, -z, ...rest]);
-
-// All variants
-const variants = [original, flipZ, flipX, flipXZ];
+const variants = createLabirynth();
 
 export default class Level {
-  constructor() {
+  constructor(player) {
+    this.player = player;
     this.level = 1;
     this.initLevel();
   }
@@ -70,7 +57,9 @@ export default class Level {
     this.keysNumber = 1;
     this.freeSpace = this.copyFreeSpace();
 
-    this.map = variants[Math.floor(Math.random() * variants.length)];
+    this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
+    this.player.move(0, 0, 0, 0, 0);
+    this.player.setCollisionAreas(this.labyrinth.collisionAreas);
     this.coins = [];
     this.keys = [];
     this.portals = [];
@@ -78,9 +67,15 @@ export default class Level {
     this.placeKeys();
     this.placeCoins();
 
-    createObjects(this.map, "map");
+    createObjects(this.labyrinth.map, "map");
     createObjects(this.coins, "coin");
     createObjects(this.keys, "key");
+  }
+
+  nextLevel() {
+    document.getElementById("world").innerHTML = "";
+    this.level += 1;
+    this.initLevel();
   }
 
   placeKeys() {
@@ -127,12 +122,6 @@ export default class Level {
       ]);
       this.freeSpace.splice(index, 1);
     }
-  }
-
-  nextLevel() {
-    document.getElementById("world").innerHTML = "";
-    this.level += 1;
-    this.initLevel();
   }
 
   spawnPortal() {

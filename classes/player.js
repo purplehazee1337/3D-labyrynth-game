@@ -1,29 +1,6 @@
 const deg = Math.PI / 180;
 const world = document.getElementById("world");
 
-const collisionRects = [
-  // TOP wall (z = -1000 to -950)
-  { x1: -1000, x2: 1000, z1: -1000, z2: -950 },
-
-  // BOTTOM wall (z = +950 to +1000)
-  { x1: -1000, x2: 1000, z1: 950, z2: 1000 },
-
-  // LEFT wall (x = -1000 to -950)
-  { x1: -1000, x2: -950, z1: -1000, z2: 1000 },
-
-  // RIGHT wall (x = +950 to +1000)
-  { x1: 950, x2: 1000, z1: -1000, z2: 1000 },
-];
-
-function isColliding(nx, nz) {
-  for (const r of collisionRects) {
-    if (nx >= r.x1 && nx <= r.x2 && nz >= r.z1 && nz <= r.z2) {
-      return true;
-    }
-  }
-  return false;
-}
-
 export default class Player {
   constructor(x, y, z, rx, ry, lock = true) {
     this.x = x;
@@ -40,6 +17,8 @@ export default class Player {
     this.pressUp = 0;
     this.mouseX = 0;
     this.mouseY = 0;
+
+    this.collisionAreas = [];
 
     //if the key is pressed
     document.addEventListener("keydown", (e) => {
@@ -113,6 +92,19 @@ export default class Player {
     this.ry = ry;
   }
 
+  isColliding(nx, nz) {
+    for (const r of this.collisionAreas) {
+      if (nx >= r.x1 && nx <= r.x2 && nz >= r.z1 && nz <= r.z2) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  setCollisionAreas(areas) {
+    this.collisionAreas = areas;
+  }
+
   update() {
     const dx =
       Math.cos(this.ry * deg) * (this.pressRight - this.pressLeft) -
@@ -134,10 +126,10 @@ export default class Player {
     const nz = this.z + dz;
 
     // AABB collision checks
-    if (!isColliding(nx, this.z)) {
+    if (!this.isColliding(nx, this.z)) {
       this.x = nx;
     }
-    if (!isColliding(this.x, nz)) {
+    if (!this.isColliding(this.x, nz)) {
       this.z = nz;
     }
     /////////////////////

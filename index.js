@@ -1,4 +1,4 @@
-import Player from "./classes/Player.js";
+import Player from "./classes/player.js";
 import { canLock } from "./utils/menu.js";
 import objectDetector from "./utils/objectDetector.js";
 import Level from "./classes/Level.js";
@@ -9,7 +9,7 @@ import itemRotator from "./utils/itemRotator.js";
   const world = document.getElementById("world");
   world.style.backgroundImage = "url('background.webp')";
   const player = new Player(0, 0, 0, 0, 0);
-  const level = new Level();
+  const level = new Level(player);
 
   const container = document.getElementById("container");
   container.onclick = () => {
@@ -58,7 +58,6 @@ import itemRotator from "./utils/itemRotator.js";
         console.log("Portal reached:", id);
         level.nextLevel();
         fireQuestModule("Level: " + level.getLevel());
-        player.move(0, 0, 0, 0, 0);
       }
     });
     itemRotator();
