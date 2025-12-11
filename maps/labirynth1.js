@@ -1,5 +1,5 @@
-const dev = true;
-const wallTexture = dev ? "assets/textures/wall.jpg" : "";
+const dev = false;
+const wallTexture = dev ? "" : "assets/textures/wall.jpg";
 
 const column1 = [
   //Modules
@@ -362,6 +362,43 @@ const verticalWalls = [
   [-975, -100, 0, 90, 0, 0, 50, 2000, "orange", wallTexture],
 ];
 
+const defaultFreeSpace = [
+  //z: -800
+  { x: -800, z: -800 },
+  { x: -400, z: -800 },
+  { x: 0, z: -800 },
+  { x: 400, z: -800 },
+  { x: 800, z: -800 },
+
+  //z: -400
+  { x: -800, z: -400 },
+  { x: -400, z: -400 },
+  { x: 0, z: -400 },
+  { x: 400, z: -400 },
+  { x: 800, z: -400 },
+
+  //z: 0
+  { x: -800, z: 0 },
+  { x: -400, z: 0 },
+  // { x: 0, z: 0 },
+  { x: 400, z: 0 },
+  { x: 800, z: 0 },
+
+  //z: 400
+  { x: -800, z: 400 },
+  { x: -400, z: 400 },
+  { x: 0, z: 400 },
+  { x: 400, z: 400 },
+  { x: 800, z: 400 },
+
+  //z: 800
+  { x: -800, z: 800 },
+  { x: -400, z: 800 },
+  { x: 0, z: 800 },
+  { x: 400, z: 800 },
+  { x: 800, z: 800 },
+];
+
 const map = [
   //Floor
   [0, 100, 0, 90, 0, 0, 2000, 2000, "gray", "assets/textures/floor.webp"],
@@ -403,7 +440,11 @@ const collisionAreas = [
   { x1: 550, x2: 650, z1: -150, z2: 250 },
 ];
 
-const original = { map: map, collisionAreas: collisionAreas };
+const original = {
+  map: map,
+  collisionAreas: collisionAreas,
+  defaultFreeSpace: defaultFreeSpace,
+};
 
 // Flip through Z axis (mirror X)
 const flipZ = {
@@ -414,6 +455,7 @@ const flipZ = {
     z1,
     z2,
   })),
+  defaultFreeSpace: defaultFreeSpace,
 };
 
 // Flip through X axis (mirror Y)
@@ -425,6 +467,7 @@ const flipX = {
     z1: -z2,
     z2: -z1,
   })),
+  defaultFreeSpace: defaultFreeSpace,
 };
 
 // Flip through both X and Z (mirror X and Y)
@@ -436,6 +479,7 @@ const flipXZ = {
     z1: -z2,
     z2: -z1,
   })),
+  defaultFreeSpace: defaultFreeSpace,
 };
 
 // All variants

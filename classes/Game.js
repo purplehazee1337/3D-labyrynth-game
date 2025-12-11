@@ -1,62 +1,54 @@
 import createLabirynth from "../maps/labirynth1.js";
 import createObjects from "../utils/createObjects.js";
+import fireModal from "../utils/fireModal.js";
+import { displayPov, hidePov } from "../utils/pov.js";
 
-const defaultFreeSpace = [
-  //z: -800
-  { x: -800, z: -800 },
-  { x: -400, z: -800 },
-  { x: 0, z: -800 },
-  { x: 400, z: -800 },
-  { x: 800, z: -800 },
-
-  //z: -400
-  { x: -800, z: -400 },
-  { x: -400, z: -400 },
-  { x: 0, z: -400 },
-  { x: 400, z: -400 },
-  { x: 800, z: -400 },
-
-  //z: 0
-  { x: -800, z: 0 },
-  { x: -400, z: 0 },
-  // { x: 0, z: 0 },
-  { x: 400, z: 0 },
-  { x: 800, z: 0 },
-
-  //z: 400
-  { x: -800, z: 400 },
-  { x: -400, z: 400 },
-  { x: 0, z: 400 },
-  { x: 400, z: 400 },
-  { x: 800, z: 400 },
-
-  //z: 800
-  { x: -800, z: 800 },
-  { x: -400, z: 800 },
-  { x: 0, z: 800 },
-  { x: 400, z: 800 },
-  { x: 800, z: 800 },
-];
 const variants = createLabirynth();
+const counter = document.getElementById("counter");
+const container = document.getElementById("container");
 
-export default class Level {
+let canLock = false;
+
+container.onclick = () => {
+  if (canLock) container.requestPointerLock();
+};
+
+export default class Game {
   constructor(player) {
     this.player = player;
-    this.level = 1;
-    this.initLevel();
+    this.interval = null;
+    this.init();
+
+    document.addEventListener("pointerlockchange", (e) => {
+      this.player.changeLock();
+    });
   }
 
-  // Deep-copy free positions
-  copyFreeSpace() {
-    return defaultFreeSpace.map((pos) => ({ ...pos }));
+  init() {
+    this.level = 0;
+    this.score = 0;
+    this.timeLeft = 300; // 5 minutes
+    this.labyrinth = variants[0];
+    this.player.move(0, 0, 0, 0, 0);
+    this.player.setCollisionAreas(this.labyrinth.collisionAreas);
+
+    this.coins = [];
+    this.keys = [];
+    this.portals = [];
+
+    createObjects(this.labyrinth.map, "map");
   }
 
-  // Common code for level creation
-  initLevel() {
-    this.coinsNumber = Math.floor(this.level * 1.2);
+  startNewLevel() {
+    if (this.level === 0) {
+      this.startTimer();
+    }
+    canLock = true;
+    document.getElementById("world").innerHTML = "";
+    this.level += 1;
+    this.coinsNumber = 1;
     this.keysNumber = 1;
     this.freeSpace = this.copyFreeSpace();
-
     this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
     this.player.move(0, 0, 0, 0, 0);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);
@@ -70,12 +62,51 @@ export default class Level {
     createObjects(this.labyrinth.map, "map");
     createObjects(this.coins, "coin");
     createObjects(this.keys, "key");
+
+    displayPov();
+
+    fireModal(`LEVEL ${this.level}<br>QUEST<br>FIND THE KEY.`);
   }
 
-  nextLevel() {
+  end() {
+    document.exitPointerLock();
+
     document.getElementById("world").innerHTML = "";
-    this.level += 1;
-    this.initLevel();
+    document.getElementById("game-over").style.display = "block";
+    canLock = false;
+    clearInterval(this.interval);
+    this.interval = null;
+    hidePov();
+  }
+
+  reset() {
+    document.getElementById("world").innerHTML = "";
+    document.getElementById("game-over").style.display = "none";
+    document.getElementById("menu1").style.display = "flex";
+
+    clearInterval(this.interval);
+    this.init();
+    canLock = false;
+  }
+
+  startTimer() {
+    if (!counter) return;
+    counter.style.display = "block";
+
+    this.interval = setInterval(() => {
+      this.timeLeft--;
+
+      // Format mm:ss
+      const minutes = Math.floor(this.timeLeft / 60);
+      const seconds = this.timeLeft % 60;
+      counter.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
+      if (this.timeLeft <= 0) {
+        clearInterval(this.interval);
+        counter.textContent = "";
+        this.end();
+      }
+    }, 1000);
   }
 
   placeKeys() {
@@ -161,5 +192,8 @@ export default class Level {
   }
   getPortals() {
     return this.portals;
+  }
+  copyFreeSpace() {
+    return this.labyrinth.defaultFreeSpace.map((area) => ({ ...area }));
   }
 }

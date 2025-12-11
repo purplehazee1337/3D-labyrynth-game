@@ -1,7 +1,7 @@
-const questModule = document.getElementById("quest");
+const questModule = document.getElementById("modal");
 
-export default function fireQuestModule(text) {
-  questModule.innerHTML = `QUEST<br>${text}`;
+export default function fireModal(text) {
+  questModule.innerHTML = `${text}`;
 
   // Fade in
   questModule.classList.remove("fade-out");
@@ -21,5 +21,5 @@ export default function fireQuestModule(text) {
     setTimeout(() => {
       questModule.style.display = "none";
     }, 1000); // match transition time in CSS
-  }, 6000);
+  }, 3000);
 }

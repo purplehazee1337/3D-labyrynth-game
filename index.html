@@ -56,8 +56,24 @@
           <p>Back</p>
         </button>
       </div>
-      <div id="counter" class="counter">10:00</div>
+      <div id="counter" class="counter"></div>
       <img id="povGif" />
+      <div id="game-over" class="menu" style="display: none">
+        <p>GAME OVER</p>
+        <div>
+          <p>LEVEL REACHED:</p>
+          <p id="level-reached">0</p>
+        </div>
+        <div>
+          <p>SCORE:</p>
+          <p id="final-score">0</p>
+        </div>
+        <button id="restart-button" class="button">
+          <p>RESTART</p>
+        </button>
+      </div>
+
+      <div id="modal"></div>
       <div id="quest"></div>
     </div>
   </body>
