@@ -6,6 +6,7 @@ import playSound from "./utils/playSound.js";
 import fireModal from "./utils/fireModal.js";
 import StaminaBar from "./classes/StaminaBar.js";
 import HealthBar from "./classes/HealthBar.js";
+import { playRandomTrack } from "./utils/playRandomTrack.js";
 
 const player = new Player(0, 0, 0, 0, 0);
 const staminaBar = new StaminaBar(player);
@@ -28,6 +29,7 @@ const selectSound = "assets/audio/diablo-2-select.mp3";
 
 button1.onclick = function () {
   game.startNewLevel();
+  playRandomTrack();
   playSound(selectSound);
   menu1.style.display = "none";
   console.log("button1");
@@ -85,7 +87,6 @@ setInterval(() => {
   objectDetector(coins, "coin", player, (id) => {
     const el = document.getElementById(id);
     if (el) {
-      playSound(selectSound);
       el.remove();
       game.addScore(50);
       player.addStamina(50);
@@ -97,7 +98,7 @@ setInterval(() => {
   objectDetector(keys, "key", player, (id) => {
     const el = document.getElementById(id);
     if (el) {
-      playSound(selectSound);
+      playSound("assets/audio/questdon.wav");
       el.remove();
       game.spawnPortal();
       fireModal("QUEST<br>FIND THE PORTAL.");
@@ -107,7 +108,7 @@ setInterval(() => {
   });
 
   objectDetector(portals, "portal", player, (id) => {
-    playSound(selectSound);
+    playSound("assets/audio/storm.wav");
     console.log("Portal reached:", id);
     game.startNewLevel();
   });

@@ -2,6 +2,8 @@ import createLabirynth from "../maps/labirynth1.js";
 import createObjects from "../utils/createObjects.js";
 import createSpikes from "../utils/createSpikes.js";
 import fireModal from "../utils/fireModal.js";
+import { stopMusic } from "../utils/playRandomTrack.js";
+import playSound from "../utils/playSound.js";
 import { displayPov, hidePov } from "../utils/pov.js";
 
 const variants = createLabirynth();
@@ -77,6 +79,7 @@ export default class Game {
     this.healthBar.show();
 
     fireModal(`LEVEL ${this.level}<br>QUEST<br>FIND THE KEY.`);
+    playSound("assets/audio/cast9.wav");
   }
 
   end() {
@@ -94,6 +97,9 @@ export default class Game {
     hidePov();
     this.staminaBar.hide();
     this.healthBar.hide();
+
+    playSound("assets/audio/elementl.wav");
+    stopMusic();
   }
 
   reset() {

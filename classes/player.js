@@ -1,3 +1,5 @@
+import playSound from "../utils/playSound.js";
+
 const deg = Math.PI / 180;
 const world = document.getElementById("world");
 
@@ -157,6 +159,7 @@ export default class Player {
 
   addStamina(amount) {
     this.stamina = Math.min(this.stamina + amount, 100);
+    playSound("assets/audio/fmag.wav");
   }
 
   removeStamina(amount) {
@@ -169,10 +172,12 @@ export default class Player {
 
   addHealth(amount) {
     this.health = Math.min(this.health + amount, 100);
+    playSound("assets/audio/healing.wav");
   }
 
   removeHealth(amount) {
     this.health = Math.max(this.health - amount, 0);
+    playSound("assets/audio/blsimpt.wav");
   }
 
   setCollisionAreas(areas) {
