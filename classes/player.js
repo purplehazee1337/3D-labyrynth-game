@@ -5,9 +5,9 @@ const world = document.getElementById("world");
 const maxJumpHeight = 200;
 const gravityStrength = 0.2;
 const jumpStrength = 10;
-const jumpStaminaCost = 20;
-const staminaRegenRate = 0.02;
-const healthRegenRate = 0.05;
+const jumpStaminaCost = 10;
+const staminaRegenRate = 0.03;
+const healthRegenRate = 0.02;
 const baseSpeed = 5;
 
 export default class Player {
@@ -189,7 +189,7 @@ export default class Player {
 
     if (this.isSprinting && this.stamina > 0) {
       speed *= 2;
-      this.stamina -= 0.1;
+      this.stamina -= 0.5;
     }
 
     // Movment x, z
