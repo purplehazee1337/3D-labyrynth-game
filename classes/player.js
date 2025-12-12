@@ -4,11 +4,11 @@ const world = document.getElementById("world");
 //Player configuration constants
 const maxJumpHeight = 200;
 const gravityStrength = 0.2;
-const speedMultiplier = 5;
 const jumpStrength = 10;
 const jumpStaminaCost = 20;
 const staminaRegenRate = 0.02;
 const healthRegenRate = 0.02;
+const baseSpeed = 5;
 
 export default class Player {
   constructor(x, y, z, rx, ry, lock = true) {
@@ -21,6 +21,7 @@ export default class Player {
     this.vy = 0;
     this.lock = lock;
     this.lockJump = false;
+    this.isSprinting = false;
 
     //Key press states
     this.pressLeft = 0;
@@ -48,23 +49,30 @@ export default class Player {
       if (!this.lock) {
         switch (e.key) {
           case "w":
+          case "W":
           case "ArrowUp":
             this.pressForward = 1;
             break;
           case "s":
+          case "S":
           case "ArrowDown":
             this.pressBack = 1;
             break;
           case "d":
+          case "D":
           case "ArrowRight":
             this.pressRight = 1;
             break;
           case "a":
+          case "A":
           case "ArrowLeft":
             this.pressLeft = 1;
             break;
           case " ":
             this.jump();
+            break;
+          case "Shift":
+            this.isSprinting = true;
             break;
         }
       }
@@ -75,20 +83,27 @@ export default class Player {
       if (!this.lock) {
         switch (e.key) {
           case "w":
+          case "W":
           case "ArrowUp":
             this.pressForward = 0;
             break;
           case "s":
+          case "S":
           case "ArrowDown":
             this.pressBack = 0;
             break;
           case "d":
+          case "D":
           case "ArrowRight":
             this.pressRight = 0;
             break;
           case "a":
+          case "A":
           case "ArrowLeft":
             this.pressLeft = 0;
+            break;
+          case "Shift":
+            this.isSprinting = false;
             break;
         }
       }
@@ -138,19 +153,26 @@ export default class Player {
     // Staima and health regeneration
     this.stamina = Math.min(this.stamina + staminaRegenRate, 100);
     this.health = Math.min(this.health + healthRegenRate, 100);
+    console.log(this.stamina);
+
+    // Movement speed
+    let speed = baseSpeed;
+
+    if (this.isSprinting && this.stamina > 0) {
+      speed *= 2;
+      this.stamina -= 0.1;
+    }
 
     // Movment x, z
-    const dx =
+    let dx =
       Math.cos(this.ry * deg) * (this.pressRight - this.pressLeft) -
-      Math.sin(this.ry * deg) *
-        (this.pressForward - this.pressBack) *
-        speedMultiplier;
+      Math.sin(this.ry * deg) * (this.pressForward - this.pressBack) * speed;
 
-    const dz =
+    let dz =
       -(
         Math.sin(this.ry * deg) * (this.pressRight - this.pressLeft) +
         Math.cos(this.ry * deg) * (this.pressForward - this.pressBack)
-      ) * speedMultiplier;
+      ) * speed;
 
     const drx = this.mouseY / 4;
     const dry = -this.mouseX / 4;
