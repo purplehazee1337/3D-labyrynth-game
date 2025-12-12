@@ -145,6 +145,22 @@ export default class Player {
     return false;
   }
 
+  addStaimna(amount) {
+    this.stamina = Math.min(this.stamina + amount, 100);
+  }
+
+  removeStamina(amount) {
+    this.stamina = Math.max(this.stamina - amount, 0);
+  }
+
+  addHealth(amount) {
+    this.health = Math.min(this.health + amount, 100);
+  }
+
+  removeHealth(amount) {
+    this.health = Math.max(this.health - amount, 0);
+  }
+
   setCollisionAreas(areas) {
     this.collisionAreas = areas;
   }

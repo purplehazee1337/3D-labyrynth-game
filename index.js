@@ -81,6 +81,7 @@ setInterval(() => {
       playSound(sound1);
       el.remove();
       game.addScore(50);
+      player.addStaimna(50);
       console.log("Coin collected:", id);
     }
   });
