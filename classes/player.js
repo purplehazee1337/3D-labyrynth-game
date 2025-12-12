@@ -136,9 +136,14 @@ export default class Player {
     this.stamina -= jumpStaminaCost;
   }
 
-  isColliding(nx, nz) {
+  isColliding(nx, nz, additionalDistance = 10) {
     for (const r of this.collisionAreas) {
-      if (nx >= r.x1 && nx <= r.x2 && nz >= r.z1 && nz <= r.z2) {
+      if (
+        nx >= r.x1 - additionalDistance &&
+        nx <= r.x2 + additionalDistance &&
+        nz >= r.z1 - additionalDistance &&
+        nz <= r.z2 + additionalDistance
+      ) {
         return true;
       }
     }
