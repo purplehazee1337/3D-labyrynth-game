@@ -80,8 +80,9 @@ setInterval(() => {
     if (el) {
       playSound(sound1);
       el.remove();
+      game.addScore(50);
+      console.log("Coin collected:", id);
     }
-    console.log("Coin collected:", id);
   });
 
   objectDetector(keys, "key", player, (id) => {
@@ -91,6 +92,7 @@ setInterval(() => {
       el.remove();
       game.spawnPortal();
       fireModal("QUEST<br>FIND THE PORTAL.");
+      game.addScore(50);
       console.log("Key collected:", id);
     }
   });

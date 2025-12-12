@@ -46,6 +46,7 @@ export default class Game {
     canLock = true;
     document.getElementById("world").innerHTML = "";
     this.level += 1;
+    this.score += this.level * 10;
     this.coinsNumber = 1;
     this.keysNumber = 1;
     this.freeSpace = this.copyFreeSpace();
@@ -73,6 +74,8 @@ export default class Game {
 
     document.getElementById("world").innerHTML = "";
     document.getElementById("game-over").style.display = "block";
+    document.getElementById("level-reached").textContent = this.level;
+    document.getElementById("final-score").textContent = this.score;
     canLock = false;
     clearInterval(this.interval);
     this.interval = null;
@@ -176,6 +179,10 @@ export default class Game {
 
     this.freeSpace.splice(index, 1);
     createObjects(this.portals, "portal");
+  }
+
+  addScore(points) {
+    this.score += points;
   }
 
   getLevel() {
