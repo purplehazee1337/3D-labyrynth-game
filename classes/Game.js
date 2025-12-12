@@ -1,5 +1,6 @@
 import createLabirynth from "../maps/labirynth1.js";
 import createObjects from "../utils/createObjects.js";
+import createSpikes from "../utils/createSpikes.js";
 import fireModal from "../utils/fireModal.js";
 import { displayPov, hidePov } from "../utils/pov.js";
 
@@ -37,6 +38,7 @@ export default class Game {
     this.coins = [];
     this.keys = [];
     this.portals = [];
+    this.spikes = [];
 
     createObjects(this.labyrinth.map, "map");
   }
@@ -51,20 +53,24 @@ export default class Game {
     this.score += this.level * 10;
     this.coinsNumber = 2;
     this.keysNumber = 1;
+    this.spikesNumber = 10;
     this.freeSpace = this.copyFreeSpace();
     this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
     this.player.move(0, 0, 0, 0, 0);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);
     this.coins = [];
     this.keys = [];
+    this.spikes = [];
     this.portals = [];
 
     this.placeKeys();
     this.placeCoins();
+    this.placeSpikes();
 
     createObjects(this.labyrinth.map, "map");
     createObjects(this.coins, "coin");
     createObjects(this.keys, "key");
+    createSpikes(this.spikes, "spike");
 
     displayPov();
     this.staminaBar.show();
@@ -166,6 +172,29 @@ export default class Game {
     }
   }
 
+  placeSpikes() {
+    for (let i = 0; i < this.spikesNumber; i++) {
+      if (this.freeSpace.length <= 1) return;
+
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.spikes.push([
+        pos.x,
+        80,
+        pos.z,
+        0,
+        90,
+        0,
+        100,
+        50,
+        "",
+        "assets/textures/spikes.png",
+      ]);
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
   spawnPortal() {
     if (this.freeSpace.length === 0) return;
 
@@ -207,6 +236,9 @@ export default class Game {
   }
   getPortals() {
     return this.portals;
+  }
+  getSpikes() {
+    return this.spikes;
   }
   copyFreeSpace() {
     return this.labyrinth.defaultFreeSpace.map((area) => ({ ...area }));

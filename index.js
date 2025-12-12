@@ -24,50 +24,45 @@ const button5 = document.getElementById("button5");
 const restartButton = document.getElementById("restart-button");
 
 //Sounds
-const sound1 = "assets/audio/diablo-2-select.mp3";
-const sound2 = "assets/audio/diablo-2-hostile.mp3";
-const sound3 = "assets/audio/diablo-2-identify.mp3";
-const sound4 = "assets/audio/diablo-2-enchanted.mp3";
-const levelMusic1 = "assets/audio/01 - Wilderness.mp3";
+const selectSound = "assets/audio/diablo-2-select.mp3";
 
 button1.onclick = function () {
   game.startNewLevel();
-  playSound(sound1);
-  //playSound(levelMusic1);
+  playSound(selectSound);
   menu1.style.display = "none";
   console.log("button1");
 };
 
 button2.onclick = function () {
-  playSound(sound1);
+  playSound(selectSound);
   menu1.style.display = "none";
   menu2.style.display = "flex";
   console.log("pressed button2");
 };
 
 button3.onclick = function () {
-  playSound(sound1);
+  playSound(selectSound);
   menu1.style.display = "flex";
   menu2.style.display = "none";
   console.log("pressed button3");
 };
 
 button4.onclick = function () {
-  playSound(sound1);
+  playSound(selectSound);
   menu1.style.display = "none";
   menu3.style.display = "flex";
   console.log("pressed button4");
 };
 
 button5.onclick = function () {
-  playSound(sound1);
+  playSound(selectSound);
   menu1.style.display = "flex";
   menu3.style.display = "none";
   console.log("pressed button5");
 };
 
 restartButton.onclick = function () {
-  playSound(sound1);
+  playSound(selectSound);
   game.reset();
   console.log("pressed restartButton");
 };
@@ -85,11 +80,12 @@ setInterval(() => {
   const coins = game.getCoins();
   const keys = game.getKeys();
   const portals = game.getPortals();
+  const spikes = game.getSpikes();
 
   objectDetector(coins, "coin", player, (id) => {
     const el = document.getElementById(id);
     if (el) {
-      playSound(sound1);
+      playSound(selectSound);
       el.remove();
       game.addScore(50);
       player.addStamina(50);
@@ -101,7 +97,7 @@ setInterval(() => {
   objectDetector(keys, "key", player, (id) => {
     const el = document.getElementById(id);
     if (el) {
-      playSound(sound1);
+      playSound(selectSound);
       el.remove();
       game.spawnPortal();
       fireModal("QUEST<br>FIND THE PORTAL.");
@@ -111,9 +107,15 @@ setInterval(() => {
   });
 
   objectDetector(portals, "portal", player, (id) => {
-    playSound(sound1);
+    playSound(selectSound);
     console.log("Portal reached:", id);
     game.startNewLevel();
   });
+
+  objectDetector(spikes, "spike", player, (id) => {
+    player.removeHealth(1);
+    console.log("Spike", id);
+  });
+
   itemRotator();
 }, 10);
