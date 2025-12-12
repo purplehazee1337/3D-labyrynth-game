@@ -90,7 +90,7 @@ setInterval(() => {
       el.remove();
       game.addScore(50);
       player.addStamina(50);
-      player.removeHealth(20);
+      player.removeHealth(30);
       console.log("Coin collected:", id);
     }
   });

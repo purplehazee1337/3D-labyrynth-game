@@ -55,7 +55,7 @@ export default class Game {
     this.score += this.level * 10;
     this.coinsNumber = 2;
     this.keysNumber = 1;
-    this.spikesNumber = 10;
+    this.spikesNumber = this.level * 3;
     this.freeSpace = this.copyFreeSpace();
     this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
     this.player.move(0, 0, 0, 0, 0);
