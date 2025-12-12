@@ -14,8 +14,10 @@ container.onclick = () => {
 };
 
 export default class Game {
-  constructor(player) {
+  constructor(player, staminaBar, healthBar) {
     this.player = player;
+    this.staminaBar = staminaBar;
+    this.healthBar = healthBar;
     this.interval = null;
     this.init();
 
@@ -29,7 +31,7 @@ export default class Game {
     this.score = 0;
     this.timeLeft = 300; // 5 minutes
     this.labyrinth = variants[0];
-    this.player.move(0, 0, 0, 0, 0);
+    this.player.init(0, 0, 0, 0, 0, true);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);
 
     this.coins = [];
@@ -47,7 +49,7 @@ export default class Game {
     document.getElementById("world").innerHTML = "";
     this.level += 1;
     this.score += this.level * 10;
-    this.coinsNumber = 1;
+    this.coinsNumber = 5;
     this.keysNumber = 1;
     this.freeSpace = this.copyFreeSpace();
     this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
@@ -65,6 +67,8 @@ export default class Game {
     createObjects(this.keys, "key");
 
     displayPov();
+    this.staminaBar.show();
+    this.healthBar.show();
 
     fireModal(`LEVEL ${this.level}<br>QUEST<br>FIND THE KEY.`);
   }
@@ -79,7 +83,11 @@ export default class Game {
     canLock = false;
     clearInterval(this.interval);
     this.interval = null;
+
+    counter.style.display = "none";
     hidePov();
+    this.staminaBar.hide();
+    this.healthBar.hide();
   }
 
   reset() {

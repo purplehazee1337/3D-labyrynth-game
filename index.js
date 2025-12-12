@@ -4,9 +4,13 @@ import Game from "./classes/Game.js";
 import itemRotator from "./utils/itemRotator.js";
 import playSound from "./utils/playSound.js";
 import fireModal from "./utils/fireModal.js";
+import StaminaBar from "./classes/StaminaBar.js";
+import HealthBar from "./classes/HealthBar.js";
 
 const player = new Player(0, 0, 0, 0, 0);
-const game = new Game(player);
+const staminaBar = new StaminaBar(player);
+const healthBar = new HealthBar(player);
+const game = new Game(player, staminaBar, healthBar);
 
 //Menu and UI elements
 const menu1 = document.getElementById("menu1");
@@ -70,7 +74,14 @@ restartButton.onclick = function () {
 
 //Game loop
 setInterval(() => {
+  if (player.getHealth() === 0) {
+    game.end();
+  }
+
   player.update();
+  staminaBar.update();
+  healthBar.update();
+
   const coins = game.getCoins();
   const keys = game.getKeys();
   const portals = game.getPortals();
@@ -81,7 +92,8 @@ setInterval(() => {
       playSound(sound1);
       el.remove();
       game.addScore(50);
-      player.addStaimna(50);
+      player.addStamina(50);
+      player.removeHealth(10);
       console.log("Coin collected:", id);
     }
   });

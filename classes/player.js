@@ -7,11 +7,17 @@ const gravityStrength = 0.2;
 const jumpStrength = 10;
 const jumpStaminaCost = 20;
 const staminaRegenRate = 0.02;
-const healthRegenRate = 0.02;
+const healthRegenRate = 0.05;
 const baseSpeed = 5;
 
 export default class Player {
   constructor(x, y, z, rx, ry, lock = true) {
+    //Event listeners for key presses and mouse movement
+    this.init(x, y, z, rx, ry, lock);
+    this.initEventListeners();
+  }
+
+  init(x, y, z, rx, ry, lock) {
     //Position and rotation
     this.x = x;
     this.y = y;
@@ -37,10 +43,9 @@ export default class Player {
 
     //Player stats
     this.stamina = 100;
+    this.maxStamina = 100;
     this.health = 100;
-
-    //Event listeners for key presses and mouse movement
-    this.initEventListeners();
+    this.maxHealth = 100;
   }
 
   initEventListeners() {
@@ -150,12 +155,16 @@ export default class Player {
     return false;
   }
 
-  addStaimna(amount) {
+  addStamina(amount) {
     this.stamina = Math.min(this.stamina + amount, 100);
   }
 
   removeStamina(amount) {
     this.stamina = Math.max(this.stamina - amount, 0);
+  }
+
+  getHealth() {
+    return this.health;
   }
 
   addHealth(amount) {
@@ -174,7 +183,6 @@ export default class Player {
     // Staima and health regeneration
     this.stamina = Math.min(this.stamina + staminaRegenRate, 100);
     this.health = Math.min(this.health + healthRegenRate, 100);
-    console.log(this.stamina);
 
     // Movement speed
     let speed = baseSpeed;
