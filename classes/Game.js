@@ -52,10 +52,10 @@ export default class Game {
     canLock = true;
     document.getElementById("world").innerHTML = "";
     this.level += 1;
-    this.score += this.level * 10;
+    this.score += this.level * 100;
     this.coinsNumber = 2;
     this.keysNumber = 1;
-    this.spikesNumber = this.level * 3;
+    this.spikesNumber = this.level * 5;
     this.freeSpace = this.copyFreeSpace();
     this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
     this.player.move(0, 0, 0, 0, 0);
