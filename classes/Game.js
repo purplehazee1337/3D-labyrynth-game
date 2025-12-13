@@ -24,7 +24,7 @@ export default class Game {
     this.interval = null;
     this.init();
 
-    document.addEventListener("pointerlockchange", (e) => {
+    document.addEventListener("pointerlockchange", () => {
       this.player.changeLock();
     });
   }
@@ -32,12 +32,17 @@ export default class Game {
   init() {
     this.level = 0;
     this.score = 0;
-    this.timeLeft = 300; // 5 minutes
+    this.timeLeft = 300;
     this.labyrinth = variants[0];
     this.player.init(0, 0, 0, 0, 0, true);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);
 
-    this.coins = [];
+    this.blueRedbulls = [];
+    this.redRedbulls = [];
+    this.yellowRedbulls = [];
+    this.greenRedbulls = [];
+    this.purpleRedbulls = [];
+
     this.keys = [];
     this.portals = [];
     this.spikes = [];
@@ -49,28 +54,47 @@ export default class Game {
     if (this.level === 0) {
       this.startTimer();
     }
+
     canLock = true;
     document.getElementById("world").innerHTML = "";
     this.level += 1;
     this.score += this.level * 100;
-    this.coinsNumber = 2;
+
+    this.itemsNumber = 1;
     this.keysNumber = 1;
     this.spikesNumber = this.level * 5;
+
     this.freeSpace = this.copyFreeSpace();
     this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
+
     this.player.move(0, 0, 0, 0, 0);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);
-    this.coins = [];
+
+    this.blueRedbulls = [];
+    this.redRedbulls = [];
+    this.yellowRedbulls = [];
+    this.greenRedbulls = [];
+    this.purpleRedbulls = [];
+
     this.keys = [];
     this.spikes = [];
     this.portals = [];
 
+    this.placeBlueRedbulls();
+    this.placeRedRedbulls();
+    this.placeGreenRedbulls();
+    this.placeYellowRedbulls();
+    this.placePurpleRedbulls();
+
     this.placeKeys();
-    this.placeCoins();
     this.placeSpikes();
 
     createObjects(this.labyrinth.map, "map");
-    createObjects(this.coins, "coin");
+    createObjects(this.blueRedbulls, "blueRedbull");
+    createObjects(this.redRedbulls, "redRedbull");
+    createObjects(this.greenRedbulls, "greenRedbull");
+    createObjects(this.yellowRedbulls, "yellowRedbull");
+    createObjects(this.purpleRedbulls, "purpleRedbull");
     createObjects(this.keys, "key");
     createSpikes(this.spikes, "spike");
 
@@ -132,10 +156,124 @@ export default class Game {
     }, 1000);
   }
 
+  placeBlueRedbulls() {
+    for (let i = 0; i < this.itemsNumber; i++) {
+      if (this.freeSpace.length <= 1) return;
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.blueRedbulls.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        90,
+        0,
+        38,
+        100,
+        "",
+        "assets/textures/blue-redbull.png",
+      ]);
+
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
+  placeRedRedbulls() {
+    for (let i = 0; i < this.itemsNumber; i++) {
+      if (this.freeSpace.length <= 1) return;
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.redRedbulls.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        90,
+        0,
+        41,
+        100,
+        "",
+        "assets/textures/red-redbull.png",
+      ]);
+
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
+  placeGreenRedbulls() {
+    for (let i = 0; i < this.itemsNumber; i++) {
+      if (this.freeSpace.length <= 1) return;
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.greenRedbulls.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        90,
+        0,
+        41,
+        100,
+        "",
+        "assets/textures/green-redbull.png",
+      ]);
+
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
+  placeYellowRedbulls() {
+    for (let i = 0; i < this.itemsNumber; i++) {
+      if (this.freeSpace.length <= 1) return;
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.yellowRedbulls.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        90,
+        0,
+        40,
+        80,
+        "",
+        "assets/textures/yellow-redbull.png",
+      ]);
+
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
+  placePurpleRedbulls() {
+    for (let i = 0; i < this.itemsNumber; i++) {
+      if (this.freeSpace.length <= 1) return;
+      const index = Math.floor(Math.random() * this.freeSpace.length);
+      const pos = this.freeSpace[index];
+
+      this.purpleRedbulls.push([
+        pos.x,
+        30,
+        pos.z,
+        0,
+        90,
+        0,
+        39,
+        100,
+        "",
+        "assets/textures/purple-redbull.png",
+      ]);
+
+      this.freeSpace.splice(index, 1);
+    }
+  }
+
   placeKeys() {
     for (let i = 0; i < this.keysNumber; i++) {
       if (this.freeSpace.length <= 1) return;
-
       const index = Math.floor(Math.random() * this.freeSpace.length);
       const pos = this.freeSpace[index];
 
@@ -151,29 +289,7 @@ export default class Game {
         "",
         "assets/textures/key.png",
       ]);
-      this.freeSpace.splice(index, 1);
-    }
-  }
 
-  placeCoins() {
-    for (let i = 0; i < this.coinsNumber; i++) {
-      if (this.freeSpace.length <= 1) return;
-
-      const index = Math.floor(Math.random() * this.freeSpace.length);
-      const pos = this.freeSpace[index];
-
-      this.coins.push([
-        pos.x,
-        30,
-        pos.z,
-        0,
-        90,
-        0,
-        40,
-        80,
-        "",
-        "assets/textures/redbull.png",
-      ]);
       this.freeSpace.splice(index, 1);
     }
   }
@@ -181,7 +297,6 @@ export default class Game {
   placeSpikes() {
     for (let i = 0; i < this.spikesNumber; i++) {
       if (this.freeSpace.length <= 1) return;
-
       const index = Math.floor(Math.random() * this.freeSpace.length);
       const pos = this.freeSpace[index];
 
@@ -197,6 +312,7 @@ export default class Game {
         "",
         "assets/textures/spikes.png",
       ]);
+
       this.freeSpace.splice(index, 1);
     }
   }
@@ -231,11 +347,20 @@ export default class Game {
   getLevel() {
     return this.level;
   }
-  getMap() {
-    return this.map;
+  getRedRedbulls() {
+    return this.redRedbulls;
   }
-  getCoins() {
-    return this.coins;
+  getGreenRedbulls() {
+    return this.greenRedbulls;
+  }
+  getYellowRedbulls() {
+    return this.yellowRedbulls;
+  }
+  getPurpleRedbulls() {
+    return this.purpleRedbulls;
+  }
+  getBlueRedbulls() {
+    return this.blueRedbulls;
   }
   getKeys() {
     return this.keys;
@@ -247,6 +372,6 @@ export default class Game {
     return this.spikes;
   }
   copyFreeSpace() {
-    return this.labyrinth.defaultFreeSpace.map((area) => ({ ...area }));
+    return this.labyrinth.defaultFreeSpace.map((a) => ({ ...a }));
   }
 }

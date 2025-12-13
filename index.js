@@ -79,19 +79,66 @@ setInterval(() => {
   staminaBar.update();
   healthBar.update();
 
-  const coins = game.getCoins();
+  const redRedbulls = game.getRedRedbulls();
+  const blueRedbulls = game.getBlueRedbulls();
+  const yellowRedbulls = game.getYellowRedbulls();
+  const purpleRedbulls = game.getPurpleRedbulls();
+  const greenRedbulls = game.getGreenRedbulls();
+
   const keys = game.getKeys();
   const portals = game.getPortals();
   const spikes = game.getSpikes();
 
-  objectDetector(coins, "coin", player, (id) => {
+  objectDetector(blueRedbulls, "blueRedbull", player, (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.remove();
+      game.addScore(50);
+      player.addStamina(50);
+      console.log("Redbull blue collected:", id);
+    }
+  });
+
+  objectDetector(redRedbulls, "redRedbull", player, (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.remove();
+      game.addScore(50);
+      player.addHealth(50);
+      console.log("Redbull red collected:", id);
+    }
+  });
+
+  objectDetector(greenRedbulls, "greenRedbull", player, (id) => {
     const el = document.getElementById(id);
     if (el) {
       el.remove();
       game.addScore(50);
       player.addStamina(50);
       player.removeHealth(30);
-      console.log("Coin collected:", id);
+      console.log("Redbull green collected:", id);
+    }
+  });
+
+  objectDetector(yellowRedbulls, "yellowRedbull", player, (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.remove();
+      game.addScore(50);
+      player.addStamina(50);
+      player.removeHealth(30);
+      console.log("Redbull yellow collected:", id);
+    }
+  });
+
+  objectDetector(purpleRedbulls, "purpleRedbull", player, (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.remove();
+      game.addScore(50);
+      player.addStamina(50);
+      player.removeHealth(30);
+      console.log("Redbull purple collected:", id);
     }
   });
 

@@ -110,7 +110,43 @@
   opacity: 0;
 }
 
-.coin {
+.blueRedbull {
+  height: 100px;
+  width: 100px;
+  background-image: url("./assets/textures/redbull.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.redRedbull {
+  height: 100px;
+  width: 100px;
+  background-image: url("./assets/textures/redbull.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.greenRedbull {
+  height: 100px;
+  width: 100px;
+  background-image: url("./assets/textures/redbull.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.yellowRedbull {
+  height: 100px;
+  width: 100px;
+  background-image: url("./assets/textures/redbull.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.purpleRedbull {
   height: 100px;
   width: 100px;
   background-image: url("./assets/textures/redbull.png");

@@ -1,7 +1,9 @@
 let rotation = 0;
 
 export default function itemRotator() {
-  const items = document.querySelectorAll(".coin, .key, .portal");
+  const items = document.querySelectorAll(
+    ".redRedbull, .blueRedbull, .yellowRedbull, .greenRedbull, .purpleRedbull, .key, .portal"
+  );
   rotation = (rotation + 1) % 360;
 
   for (let i = 0; i < items.length; i++) {
