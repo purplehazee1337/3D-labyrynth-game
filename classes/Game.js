@@ -103,7 +103,7 @@ class Game {
     document.exitPointerLock();
 
     document.getElementById("world").innerHTML = "";
-    document.getElementById("game-over").style.display = "block";
+    document.getElementById("game-over").style.display = "flex";
     document.getElementById("level-reached").textContent = this.level;
     document.getElementById("final-score").textContent = this.score;
     canLock = false;
