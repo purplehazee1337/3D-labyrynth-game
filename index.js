@@ -115,8 +115,12 @@ setInterval(() => {
     if (el) {
       el.remove();
       game.addScore(50);
-      player.addStamina(50);
-      player.removeHealth(30);
+      player.toggleFly();
+      playSound("assets/audio/ethereal.wav");
+      setTimeout(() => {
+        player.toggleFly();
+      }, 5000);
+
       console.log("Redbull yellow collected:", id);
     }
   });

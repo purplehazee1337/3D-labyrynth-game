@@ -28,6 +28,7 @@ class Player {
     this.lock = lock;
     this.lockJump = false;
     this.isSprinting = false;
+    this.isFlying = false;
 
     //Key press states
     this.pressLeft = 0;
@@ -178,6 +179,10 @@ class Player {
     playSound("assets/audio/blsimpt.wav");
   }
 
+  toggleFly() {
+    this.isFlying = !this.isFlying;
+  }
+
   setCollisionAreas(areas) {
     this.collisionAreas = areas;
   }
@@ -237,6 +242,9 @@ class Player {
       this.y = -maxJumpHeight;
       this.vy = 0;
     }
+
+    // Flying
+    if (this.isFlying) this.vy = -10;
 
     if (!this.lock) {
       this.rx = Math.max(Math.min(this.rx + drx, 90), -90);

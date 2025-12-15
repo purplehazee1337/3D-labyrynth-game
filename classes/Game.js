@@ -151,6 +151,7 @@ class Game {
 
   addTime(amount) {
     this.timeLeft += amount;
+    playSound("assets/audio/gshrine.wav");
   }
 
   placeBlueRedbulls() {
