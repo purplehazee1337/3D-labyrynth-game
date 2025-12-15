@@ -1,7 +1,7 @@
-const baseColor = "rgba(219, 200, 23, 1)";
-const lowColor = "rgba(209, 98, 24, 1)";
+const baseColorStamina = "rgba(219, 200, 23, 1)";
+const lowColorStamina = "rgba(209, 98, 24, 1)";
 
-export default class StaminaBar {
+class StaminaBar {
   constructor(player) {
     this.player = player;
 
@@ -20,7 +20,7 @@ export default class StaminaBar {
     this.staminaFill = document.createElement("div");
     this.staminaFill.style.height = "100%";
     this.staminaFill.style.width = "100%";
-    this.staminaFill.style.backgroundColor = baseColor;
+    this.staminaFill.style.backgroundColor = baseColorStamina;
     this.barElement.appendChild(this.staminaFill);
 
     document.getElementById("container").appendChild(this.barElement);
@@ -47,9 +47,9 @@ export default class StaminaBar {
 
     // Optional: change color if low
     if (percentage < 30) {
-      this.staminaFill.style.backgroundColor = lowColor; // red
+      this.staminaFill.style.backgroundColor = lowColorStamina; // red
     } else {
-      this.staminaFill.style.backgroundColor = baseColor; // green
+      this.staminaFill.style.backgroundColor = baseColorStamina; // green
     }
   }
 }

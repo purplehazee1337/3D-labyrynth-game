@@ -1,7 +1,7 @@
 const baseColor = "rgba(192, 22, 22, 1)"; // normal health color (gold/yellow)
 const lowColor = "rgba(235, 26, 26, 1)"; // low health color (red)
 
-export default class HealthBar {
+class HealthBar {
   constructor(player) {
     this.player = player;
 

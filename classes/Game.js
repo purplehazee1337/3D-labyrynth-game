@@ -1,12 +1,4 @@
-import createLabirynth from "../maps/labirynth1.js";
-import createObjects from "../utils/createObjects.js";
-import createSpikes from "../utils/createSpikes.js";
-import fireModal from "../utils/fireModal.js";
-import { stopMusic } from "../utils/playRandomTrack.js";
-import playSound from "../utils/playSound.js";
-import { displayPov, hidePov } from "../utils/pov.js";
-
-const variants = createLabirynth();
+const labirynthVariants = createLabirynth();
 const counter = document.getElementById("counter");
 const container = document.getElementById("container");
 
@@ -16,7 +8,7 @@ container.onclick = () => {
   if (canLock) container.requestPointerLock();
 };
 
-export default class Game {
+class Game {
   constructor(player, staminaBar, healthBar) {
     this.player = player;
     this.staminaBar = staminaBar;
@@ -33,7 +25,7 @@ export default class Game {
     this.level = 0;
     this.score = 0;
     this.timeLeft = 300;
-    this.labyrinth = variants[0];
+    this.labyrinth = labirynthVariants[0];
     this.player.init(0, 0, 0, 0, 0, true);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);
 
@@ -65,7 +57,8 @@ export default class Game {
     this.spikesNumber = this.level * 5;
 
     this.freeSpace = this.copyFreeSpace();
-    this.labyrinth = variants[Math.floor(Math.random() * variants.length)];
+    this.labyrinth =
+      labirynthVariants[Math.floor(Math.random() * labirynthVariants.length)];
 
     this.player.move(0, 0, 0, 0, 0);
     this.player.setCollisionAreas(this.labyrinth.collisionAreas);

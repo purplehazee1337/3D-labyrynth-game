@@ -1,4 +1,4 @@
-export default function createObjects(objects, type) {
+function createObjects(objects, type) {
   for (let i = 0; i < objects.length; i++) {
     const [x, y, z, rx, ry, rz, w, h, color, texture] = objects[i];
     const newElement = document.createElement("div");

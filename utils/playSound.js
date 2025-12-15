@@ -1,4 +1,4 @@
-export default function playSound(sound, volume = 0.5) {
+function playSound(sound, volume = 0.5) {
   const audio = new Audio();
   audio.src = sound;
   audio.volume = volume;

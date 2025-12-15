@@ -1,13 +1,3 @@
-import Player from "./classes/player.js";
-import objectDetector from "./utils/objectDetector.js";
-import Game from "./classes/Game.js";
-import itemRotator from "./utils/itemRotator.js";
-import playSound from "./utils/playSound.js";
-import fireModal from "./utils/fireModal.js";
-import StaminaBar from "./classes/StaminaBar.js";
-import HealthBar from "./classes/HealthBar.js";
-import { playRandomTrack } from "./utils/playRandomTrack.js";
-
 const player = new Player(0, 0, 0, 0, 0);
 const staminaBar = new StaminaBar(player);
 const healthBar = new HealthBar(player);

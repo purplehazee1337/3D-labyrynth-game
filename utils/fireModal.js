@@ -3,7 +3,7 @@ const questModule = document.getElementById("modal");
 let fadeOutTimer = null;
 let hideTimer = null;
 
-export default function fireModal(text) {
+function fireModal(text) {
   // Clear running timers (avoid overlap)
   if (fadeOutTimer) clearTimeout(fadeOutTimer);
   if (hideTimer) clearTimeout(hideTimer);

@@ -725,6 +725,6 @@ const flipXZ = {
 // All variants
 const variants = [original, flipZ, flipX, flipXZ];
 
-export default function createLabirynth() {
+function createLabirynth() {
   return variants;
 }

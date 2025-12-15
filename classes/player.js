@@ -1,5 +1,3 @@
-import playSound from "../utils/playSound.js";
-
 const deg = Math.PI / 180;
 const world = document.getElementById("world");
 
@@ -12,7 +10,7 @@ const staminaRegenRate = 0.03;
 const healthRegenRate = 0.02;
 const baseSpeed = 5;
 
-export default class Player {
+class Player {
   constructor(x, y, z, rx, ry, lock = true) {
     //Event listeners for key presses and mouse movement
     this.init(x, y, z, rx, ry, lock);

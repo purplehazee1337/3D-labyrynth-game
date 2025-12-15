@@ -37,7 +37,6 @@
   width: inherit;
   height: inherit;
   transform-style: preserve-3d;
-  background-image: url("background.webp");
 }
 
 .square {

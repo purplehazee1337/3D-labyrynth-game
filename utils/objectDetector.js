@@ -1,4 +1,4 @@
-export default function objectDetector(objects, type, player, callback) {
+function objectDetector(objects, type, player, callback) {
   for (let i = 0; i < objects.length; i++) {
     const object = objects[i];
     let r =

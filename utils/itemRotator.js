@@ -1,6 +1,6 @@
 let rotation = 0;
 
-export default function itemRotator() {
+function itemRotator() {
   const items = document.querySelectorAll(
     ".redRedbull, .blueRedbull, .yellowRedbull, .greenRedbull, .purpleRedbull, .key, .portal"
   );

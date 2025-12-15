@@ -1,4 +1,4 @@
-export default function createSpikes(objects, type) {
+function createSpikes(objects, type) {
   for (let i = 0; i < objects.length; i++) {
     const [x, y, z, rx, ry, rz, w, h, color, texture] = objects[i];
     const wall1 = document.createElement("div");

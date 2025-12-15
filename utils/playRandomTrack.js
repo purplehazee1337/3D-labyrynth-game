@@ -1,6 +1,6 @@
 let audioPlayer = new Audio();
 
-export function playRandomTrack(volume = 0.2) {
+function playRandomTrack(volume = 0.2) {
   const fileNames = [
     "Unreal Tournamen - Nether Animal.mp3",
     "Unreal Tournament  - The Course.mp3",
@@ -16,7 +16,7 @@ export function playRandomTrack(volume = 0.2) {
   audioPlayer.play();
 }
 
-export function stopMusic() {
+function stopMusic() {
   if (audioPlayer) {
     audioPlayer.pause();
     audioPlayer.currentTime = 0;

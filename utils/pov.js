@@ -1,6 +1,6 @@
 const povGif = document.getElementById("povGif");
 
-export function displayPov() {
+function displayPov() {
   povGif.style.display = "block";
   povGif.src = "";
   void povGif.offsetWidth;
@@ -12,6 +12,6 @@ export function displayPov() {
   }, gifDuration);
 }
 
-export function hidePov() {
+function hidePov() {
   povGif.style.display = "none";
 }
