@@ -29,6 +29,7 @@ class Player {
     this.lockJump = false;
     this.isSprinting = false;
     this.isFlying = false;
+    this.isInvincible = false;
 
     //Key press states
     this.pressLeft = 0;
@@ -175,12 +176,20 @@ class Player {
   }
 
   removeHealth(amount) {
-    this.health = Math.max(this.health - amount, 0);
-    playSound("assets/audio/blsimpt.wav");
+    if (this.isInvincible) {
+      playSound("assets/audio/arrowall.wav");
+    } else {
+      this.health = Math.max(this.health - amount, 0);
+      playSound("assets/audio/blsimpt.wav");
+    }
   }
 
   toggleFly() {
     this.isFlying = !this.isFlying;
+  }
+
+  toggleInvincible() {
+    this.isInvincible = !this.isInvincible;
   }
 
   setCollisionAreas(areas) {

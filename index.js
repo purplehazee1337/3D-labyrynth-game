@@ -104,8 +104,12 @@ setInterval(() => {
     if (el) {
       el.remove();
       game.addScore(50);
-      player.addStamina(50);
-      player.removeHealth(30);
+      player.toggleInvincible();
+      playSound("assets/audio/guard.wav", 0.6);
+      setTimeout(() => {
+        player.toggleInvincible();
+        playSound("assets/audio/sentinel.wav");
+      }, 5000);
       console.log("Redbull green collected:", id);
     }
   });
@@ -119,6 +123,7 @@ setInterval(() => {
       playSound("assets/audio/ethereal.wav");
       setTimeout(() => {
         player.toggleFly();
+        playSound("assets/audio/sentinel.wav");
       }, 5000);
 
       console.log("Redbull yellow collected:", id);
