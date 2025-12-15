@@ -149,6 +149,10 @@ class Game {
     }, 1000);
   }
 
+  addTime(amount) {
+    this.timeLeft += amount;
+  }
+
   placeBlueRedbulls() {
     for (let i = 0; i < this.itemsNumber; i++) {
       if (this.freeSpace.length <= 1) return;

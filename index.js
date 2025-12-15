@@ -126,8 +126,7 @@ setInterval(() => {
     if (el) {
       el.remove();
       game.addScore(50);
-      player.addStamina(50);
-      player.removeHealth(30);
+      game.addTime(20);
       console.log("Redbull purple collected:", id);
     }
   });
