@@ -8,7 +8,7 @@ function displayPov() {
 
   const gifDuration = 4920;
   setTimeout(() => {
-    povGif.src = "assets/lastpov.gif";
+    povGif.src = "assets/lastPov.gif";
   }, gifDuration);
 }
 
